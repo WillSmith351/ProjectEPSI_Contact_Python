@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import json
+import re
 
 # Création de l'interface graphique.
 screen = tk.Tk()
@@ -13,6 +14,10 @@ fichier_json = 'database.json'
 def save_information_user():
     if len(name_input.get()) <= 2 or len(surname_input.get()) <= 2:
         messagebox.showwarning("Attention", "Le nom et le prénom doivent comporter plus de 3 caractères.")
+    elif not re.match("^[0-9]*$", phone_input.get()):
+        messagebox.showwarning("Attention", "Le numéro de téléphone ne peut contenir que des chiffres.")
+    elif not re.match("^\d{10}$", phone_input.get()):
+        messagebox.showwarning("Attention", "Le numéro de téléphone doit contenir exactement 10 chiffres.")
     else:
         contact = {
             "nom": name_input.get(),
