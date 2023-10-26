@@ -93,32 +93,65 @@ def supprimer_contact():
     popup.mainloop()
 
 def modifier_contact():
-    # Création de la fenêtre principale
-    screen = tk.Tk()
-    screen.title("Modifier Contact")
-    screen.geometry('400x100')
-    
-    
-    label = tk.Label(screen, text="Quel contact voulez-vous supprimer?")
+    def open_modify_window(contact):
+        modify_screen = tk.Tk()
+        modify_screen.title("Modifier Contact")
+        modify_screen.geometry('400x200')
+
+        label_nom = tk.Label(modify_screen, text="Nom:")
+        label_nom.pack()
+        nom_input = tk.Entry(modify_screen, width=30)
+        nom_input.pack()
+        nom_input.insert(0, contact["nom"])
+
+        label_telephone = tk.Label(modify_screen, text="Numéro de téléphone:")
+        label_telephone.pack()
+        telephone_input = tk.Entry(modify_screen, width=30)
+        telephone_input.pack()
+        telephone_input.insert(0, contact["telephone"])
+
+        def save_modifications():
+            modified_contact = {
+                "nom": nom_input.get(),
+                "prenom": contact["prenom"],
+                "telephone": telephone_input.get()
+            }
+            with open(fichier_json, 'r') as file:
+                data = json.load(file)
+            data[contact["prenom"]] = modified_contact
+            with open(fichier_json, 'w') as file_user:
+                json.dump(data, file_user)
+            messagebox.showinfo("Sauvegarde réussie", "Le contact a été modifié avec succès.")
+            modify_screen.destroy()
+
+        save_button = tk.Button(modify_screen, text="Enregistrer les modifications", command=save_modifications)
+        save_button.pack()
+
+        modify_screen.mainloop()
+
+    def get_contact_to_modify():
+        prenom = contact_input.get()
+        with open(fichier_json, 'r') as file:
+            data = json.load(file)
+        if prenom in data:
+            contact = data[prenom]
+            open_modify_window(contact)
+        else:
+            messagebox.showwarning("Avertissement", f"Le contact {prenom} n'existe pas dans la base de données.")
+
+    screen_modify = tk.Tk()
+    screen_modify.title("Modifier Contact")
+    screen_modify.geometry('400x100')
+
+    label = tk.Label(screen_modify, text="Quel contact voulez-vous modifier?")
     label.pack()
-    contact_input = tk.Entry(screen)
+    contact_input = tk.Entry(screen_modify)
     contact_input.pack()
 
-    # Création de variables tkinter pour stocker les détails du contact
-    nom_var = tk.StringVar()
-    numero_var = tk.StringVar()
-    
-    # Fonction pour mettre à jour les détails du contact
-    def sauvegarder_contact():
-        nom = nom_var.get()
-        numero = numero_var.get()
-        
-        # Vous pouvez ajouter du code pour enregistrer les détails du contact dans une base de données ou un fichier ici
-        print("Contact modifié :")
-        print("Nom:", nom)
-        print("Numéro de téléphone:", numero)
-        
-        screen.destroy()  # Ferme la fenêtre après avoir sauvegardé les modifications
+    modify_button = tk.Button(screen_modify, text="Modifier", command=get_contact_to_modify)
+    modify_button.pack()
+
+    screen_modify.mainloop()
 
 def delete_all_users():
     try:
