@@ -86,6 +86,33 @@ def supprimer_contact():
     popup.geometry('400x100')
     popup.mainloop()
 
+def modifier_contact():
+    # Création de la fenêtre principale
+    screen = tk.Tk()
+    screen.title("Modifier Contact")
+    screen.geometry('400x100')
+    
+    
+    label = tk.Label(screen, text="Quel contact voulez-vous supprimer?")
+    label.pack()
+    contact_input = tk.Entry(screen)
+    contact_input.pack()
+
+    # Création de variables tkinter pour stocker les détails du contact
+    nom_var = tk.StringVar()
+    numero_var = tk.StringVar()
+    
+    # Fonction pour mettre à jour les détails du contact
+    def sauvegarder_contact():
+        nom = nom_var.get()
+        numero = numero_var.get()
+        
+        # Vous pouvez ajouter du code pour enregistrer les détails du contact dans une base de données ou un fichier ici
+        print("Contact modifié :")
+        print("Nom:", nom)
+        print("Numéro de téléphone:", numero)
+        
+        screen.destroy()  # Ferme la fenêtre après avoir sauvegardé les modifications
 # Création des éléments de l'application :
 contact_title = tk.Label(screen, text="Entrez les informations du contact :", bg="white", font=("Helvetica", 16, "bold"))
 contact_title.pack(pady=10)
@@ -120,6 +147,8 @@ bouton_afficher_contacts.pack(pady=10)
 delete_contact_button = tk.Button(screen, text="Supprimer un contact", borderwidth=5, relief='raised', bg="red", fg="white", font=("Helvetica", 12, "bold"), padx=10, pady=5, command=supprimer_contact)
 delete_contact_button.pack(pady=10)
 
+bouton_editer = tk.Button(screen, text="Éditer", borderwidth=5, relief='raised', bg="white", fg="blue", font=("Helvetica", 12, "bold"), padx=10, pady=5,  command=modifier_contact)
+bouton_editer.pack()
 # Configuration de l'interface graphique :
 screen.geometry('600x700')
 screen.configure(bg="#ECF8F6")

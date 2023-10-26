@@ -1,17 +1,1 @@
-{
-    "Charles": {
-        "nom": "De Feligonde",
-        "prenom": "Charles",
-        "telephone": "1234567890"
-    },
-    "AZERTYUIo": {
-        "nom": "AZERTYUIAZERTYUI",
-        "prenom": "AZERTYUIo",
-        "telephone": "1234567890"
-    },
-    "vembre": {
-        "nom": "aezez",
-        "prenom": "vembre",
-        "telephone": "4546546546"
-    }
-}
+{"Charles": {"nom": "De Feligonde", "prenom": "Charles", "telephone": "1234567890"}, "AZERTYUIo": {"nom": "AZERTYUIAZERTYUI", "prenom": "AZERTYUIo", "telephone": "1234567890"}, "vembre": {"nom": "aezez", "prenom": "vembre", "telephone": "4546546546"}, "toi": {"nom": "moi", "prenom": "toi", "telephone": "elle"}}
