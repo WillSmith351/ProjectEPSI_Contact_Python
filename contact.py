@@ -77,8 +77,8 @@ contact_button = tk.Button(screen, text="Sauvegarder", command=save_information_
 contact_button.pack()
 
 #creation du bouton pour edit le contact
-# edit_button = tk.button(screen, text="Modifier", command=modifier_contact)
-# edit_button.pack()
+edit_button = tk.button(screen, text="Modifier", command=modifier_contact)
+edit_button.pack()
 # EndEdit_button = tk.button(screen, text="Terminé", command=sauvegarder_contact)
 # EndEdit_button.pack()
 
