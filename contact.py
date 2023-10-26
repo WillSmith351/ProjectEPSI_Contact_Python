@@ -6,7 +6,9 @@ import json
 screen = tk.Tk()
 screen.title('Gestionnaire de contact')
 
+# Création de la base de données en fichier JSON
 fichier_json = 'database.json'
+
 
 # Sauvegarde des informations de l'utilisateur
 def save_information_user():
@@ -53,7 +55,67 @@ def sauvegarder_base_de_donnees(data):
         json.dump(data, fichier, indent=4)
 
 
-# Création des titres, labels, inputs et boutons.
+# Affichage des contacts.
+def afficher_liste_contacts_tkinter():
+    listeContacts.delete(1.0, tk.END)  # Effacer le contenu précédent
+
+    try:
+        with open('database.json', 'r') as fichier:
+            data = json.load(fichier)
+
+        if data:  # Vérifier si le fichier JSON n'est pas vide
+            listeContacts.insert(tk.END, "Liste des contacts :\n")
+            for key, contact in data.items():
+                nom = contact.get('nom', 'N/A')
+                prenom = contact.get('prenom', 'N/A')
+                telephone = contact.get('telephone', 'N/A')
+                contact_info = f"Nom : {nom},\n Prénom : {prenom},\n Numéro de téléphone : {telephone}\n\n"
+                listeContacts.insert(tk.END, contact_info)
+        else:
+            listeContacts.insert(tk.END, "Aucun contact n'a été ajouté pour le moment.")
+    except FileNotFoundError:
+        listeContacts.insert(tk.END, "Le fichier 'database.json' n'existe pas ou est vide.")
+
+
+# Suppresion d'un contact
+def supprimer_contact():
+    def supprimer():
+        prenom = contact_input.get()
+        try:
+            with open('database.json', 'r') as fichier:
+                data = json.load(fichier)
+
+            if prenom in data:
+                del data[prenom]
+                with open('database.json', 'w') as fichier:
+                    json.dump(data, fichier, indent=4)
+                messagebox.showinfo("Suppression réussie", f"Le contact {prenom} a été supprimé avec succès.")
+            else:
+                messagebox.showwarning("Avertissement", f"Le contact {prenom} n'existe pas dans la base de données.")
+
+            popup.destroy()
+
+        except FileNotFoundError:
+            messagebox.showerror("Erreur", "Le fichier 'database.json' n'existe pas ou est vide.")
+
+    popup = tk.Tk()
+    popup.title("Supprimer un contact")
+
+    label = tk.Label(popup, text="Quel contact voulez-vous supprimer?")
+    label.pack()
+
+    contact_input = tk.Entry(popup)
+    contact_input.pack()
+
+    delete_button = tk.Button(popup, text="Supprimer", command=supprimer)
+    delete_button.pack()
+
+    popup.geometry('400x300')
+    popup.mainloop()
+
+
+# ~~ Création des items de l'application : ~~
+
 contact_title = tk.Label(screen, text="Entrez les informations du contact :")
 contact_title.pack()
 
@@ -72,16 +134,28 @@ phone_label.pack()
 phone_input = tk.Entry(screen)
 phone_input.pack()
 
-# Création du bouton pour sauvegarder le contact. 
 contact_button = tk.Button(screen, text="Sauvegarder", command=save_information_user)
 contact_button.pack()
 
-#creation du bouton pour edit le contact
-edit_button = tk.button(screen, text="Modifier", command=modifier_contact)
-edit_button.pack()
-EndEdit_button = tk.button(screen, text="Terminé", command=sauvegarder_contact)
-EndEdit_button.pack()
+listeContacts = tk.Text(screen, height=10, width=40)
+listeContacts.pack()
 
-# Configuration de l'interface graphique.
+bouton_afficher_contacts = tk.Button(screen, text="Afficher Contacts", command=afficher_liste_contacts_tkinter)
+bouton_afficher_contacts.pack()
+
+delete_contact_button = tk.Button(screen, text="Supprimer un contact", command=supprimer_contact)
+delete_contact_button.pack()
+
+
+#creation du bouton pour edit le contact
+# edit_button = tk.button(screen, text="Modifier", command=modifier_contact)
+# edit_button.pack()
+# EndEdit_button = tk.button(screen, text="Terminé", command=sauvegarder_contact)
+# EndEdit_button.pack()
+
+
+# ~~ Configuration de l'interface graphique : ~~
+
 screen.geometry('1920x1080')
 screen.mainloop()
+

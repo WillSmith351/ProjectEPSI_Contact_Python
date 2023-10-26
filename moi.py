@@ -6,11 +6,11 @@ import json
 screen = tk.Tk()
 screen.title('Gestionnaire de contact')
 
-fichier_json = 'databasewill.json'
+fichier_json = 'database.json'
 
 # Sauvegarde des informations de l'utilisateur
 def save_information_user():
-    if len(name_input.get()) <= 2 or len(surname_input.get()) <= 2:
+    if len(name_input.get()) <= 3 or len(surname_input.get()) <= 3:
         messagebox.showwarning("Attention", "Le nom et le prénom doivent comporter plus de 3 caractères.")
     else:
         contact = {
@@ -18,44 +18,24 @@ def save_information_user():
             "prenom": surname_input.get(),
             "telephone": phone_input.get()
         }
-        title = surname_input.get()
+        titre = title_input.get()
 
         with open(fichier_json, 'r') as file:
             data = json.load(file)
             
-        data[title] = contact
+        data[titre] = contact
         with open(fichier_json, 'w') as file_user:
             json.dump(data, file_user)
         messagebox.showinfo("Sauvegarde réussie", "Le contact a bien été enregistré.")
 
-
-# Fonction pour charger les données de la base de données JSON
-def charger_base_de_donnees():
-    try:
-        with open("database.json", "r") as fichier:
-            return json.load(fichier)
-    except FileNotFoundError:
-        return []
-    
-    
-def modifier_contact():
-    # Création de la fenêtre principale
-    fenetre = tk.Tk()
-    fenetre.title("Modifier Contact")
-
-    # Création de variables tkinter pour stocker les détails du contact
-    nom_var = tk.StringVar()
-    numero_var = tk.StringVar()
-    
-    # Fonction pour sauvegarder les données de la base de données JSON
-def sauvegarder_base_de_donnees(data):
-    with open("database.json", "w") as fichier:
-        json.dump(data, fichier, indent=4)
-
-
 # Création des titres, labels, inputs et boutons.
 contact_title = tk.Label(screen, text="Entrez les informations du contact :")
 contact_title.pack()
+
+title_label = tk.Label(screen, text="Titre du contact :")
+title_label.pack()
+title_input = tk.Entry(screen)
+title_input.pack()
 
 name_label = tk.Label(screen, text="Nom :")
 name_label.pack()
@@ -76,11 +56,7 @@ phone_input.pack()
 contact_button = tk.Button(screen, text="Sauvegarder", command=save_information_user)
 contact_button.pack()
 
-#creation du bouton pour edit le contact
-# edit_button = tk.button(screen, text="Modifier", command=modifier_contact)
-# edit_button.pack()
-# EndEdit_button = tk.button(screen, text="Terminé", command=sauvegarder_contact)
-# EndEdit_button.pack()
+
 
 listeContacts = tk.Text(screen, height=10, width=40)
 listeContacts.pack()
@@ -108,46 +84,6 @@ def afficher_liste_contacts_tkinter():
 bouton_afficher_contacts = tk.Button(screen, text="Afficher Contacts", command=afficher_liste_contacts_tkinter)
 bouton_afficher_contacts.pack()
 
-def supprimer_contact():
-    def supprimer():
-        nom = contact_input.get()
-        try:
-            with open('database.json', 'r') as fichier:
-                data = json.load(fichier)
 
-            if nom in data:
-                del data[nom]
-                with open('database.json', 'w') as fichier:
-                    json.dump(data, fichier, indent=4)
-                messagebox.showinfo("Suppression réussie", f"Le contact {nom} a été supprimé avec succès.")
-            else:
-                messagebox.showwarning("Avertissement", f"Le contact {nom} n'existe pas dans la base de données.")
-
-            popup.destroy()
-
-        except FileNotFoundError:
-            messagebox.showerror("Erreur", "Le fichier 'database.json' n'existe pas ou est vide.")
-
-    popup = tk.Tk()
-    popup.title("Supprimer un contact")
-
-    label = tk.Label(popup, text="Quel contact voulez-vous supprimer?")
-    label.pack()
-
-    contact_input = tk.Entry(popup)
-    contact_input.pack()
-
-    delete_button = tk.Button(popup, text="Supprimer", command=supprimer)
-    delete_button.pack()
-
-    popup.mainloop()
-
-
-delete_contact_button = tk.Button(screen, text="Supprimer un contact", command=supprimer_contact)
-delete_contact_button.pack()
-
-
-# Configuration de l'interface graphique.
 screen.geometry('1920x1080')
 screen.mainloop()
-
