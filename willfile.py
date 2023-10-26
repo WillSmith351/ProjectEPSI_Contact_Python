@@ -6,7 +6,7 @@ import json
 screen = tk.Tk()
 screen.title('Gestionnaire de contact')
 
-fichier_json = 'database.json'
+fichier_json = 'databasewill.json'
 
 # Sauvegarde des informations de l'utilisateur
 def save_information_user():
@@ -26,7 +26,7 @@ def save_information_user():
         data[titre] = contact
         with open(fichier_json, 'w') as file_user:
             json.dump(data, file_user)
-        messagebox.showinfo("Sauvegarde réussie", "Le contact a bien été enregistré.")
+        messagebox.showinfo("Le contact a bien été enregistré.")
 
 # Création des titres, labels, inputs et boutons.
 contact_title = tk.Label(screen, text="Entrez les informations du contact :")
@@ -59,4 +59,3 @@ contact_button.pack()
 # Configuration de l'interface graphique.
 screen.geometry('1920x1080')
 screen.mainloop()
-
