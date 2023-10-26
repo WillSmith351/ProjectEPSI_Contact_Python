@@ -116,40 +116,43 @@ def supprimer_contact():
 
 # ~~ Création des items de l'application : ~~
 
+# Création des titres, labels, inputs et boutons.
 contact_title = tk.Label(screen, text="Entrez les informations du contact :")
 contact_title.pack()
 
-name_label = tk.Label(screen, text="Nom :")
+name_label = tk.Label(screen, text="Nom :", font=("Helvetica", 12), foreground="black")
 name_label.pack()
-name_input = tk.Entry(screen)
+name_input = tk.Entry(screen, font=("Helvetica", 12), borderwidth=2, relief="solid")
 name_input.pack()
 
-surname_label = tk.Label(screen, text="Prénom :")
+surname_label = tk.Label(screen, text="Prénom :", font=("Helvetica", 12), foreground="black")
 surname_label.pack()
-surname_input = tk.Entry(screen)
+surname_input = tk.Entry(screen, font=("Helvetica", 12), borderwidth=2, relief="solid")
 surname_input.pack()
 
-phone_label = tk.Label(screen, text="Numéro de téléphone :")
+phone_label = tk.Label(screen, text="Numéro de téléphone :", font=("Helvetica", 12), foreground="black")
 phone_label.pack()
-phone_input = tk.Entry(screen)
+phone_input = tk.Entry(screen, font=("Helvetica", 12), borderwidth=2, relief="solid")
 phone_input.pack()
 
-contact_button = tk.Button(screen, text="Sauvegarder", command=save_information_user)
+contact_button = tk.Button(screen, text="Sauvegarder",borderwidth=5, relief='raised', bg="green", fg="white", font=("Helvetica", 12), padx=10,pady=5, command=save_information_user)
 contact_button.pack()
 
-listeContacts = tk.Text(screen, height=10, width=40)
+contact_label = tk.Label(screen, text="liste de contacts :", font=("Helvetica", 12), foreground="black")
+contact_label.pack()
+listeContacts = tk.Text(screen, height=10, width=40, background="lightgray",foreground="black", borderwidth=2, padx=5, pady=5)
 listeContacts.pack()
 
-bouton_afficher_contacts = tk.Button(screen, text="Afficher Contacts", command=afficher_liste_contacts_tkinter)
+bouton_afficher_contacts = tk.Button(screen, text="Afficher Contacts",borderwidth=5, relief='raised', bg="blue", fg="white", font=("Helvetica", 12), padx=10,pady=5, command=afficher_liste_contacts_tkinter)
 bouton_afficher_contacts.pack()
 
-delete_contact_button = tk.Button(screen, text="Supprimer un contact", command=supprimer_contact)
+delete_contact_button = tk.Button(screen, text="Supprimer un contact",borderwidth=5, relief='raised', bg="red", fg="white", font=("Helvetica", 12), padx=10,pady=5, command=supprimer_contact)
 delete_contact_button.pack()
 
 
 #creation du bouton pour edit le contact
-edit_button = tk.button(screen, text="Modifier", command=modifier_contact)
-edit_button.pack()
+# edit_button = tk.button(screen, text="Modifier", command=modifier_contact)
+# edit_button.pack()
 # EndEdit_button = tk.button(screen, text="Terminé", command=sauvegarder_contact)
 # EndEdit_button.pack()
 

@@ -83,8 +83,8 @@ contact_button.pack()
 # EndEdit_button = tk.button(screen, text="Terminé", command=sauvegarder_contact)
 # EndEdit_button.pack()
 
-phone_label = tk.Label(screen, text="liste de contacts :", font=("Helvetica", 12), foreground="black")
-phone_label.pack()
+contact_label = tk.Label(screen, text="liste de contacts :", font=("Helvetica", 12), foreground="black")
+contact_label.pack()
 
 listeContacts = tk.Text(screen, height=10, width=40, background="lightgray",foreground="black", borderwidth=2, padx=5, pady=5)
 listeContacts.pack()
