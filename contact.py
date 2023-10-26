@@ -28,6 +28,31 @@ def save_information_user():
             json.dump(data, file_user)
         messagebox.showinfo("Sauvegarde réussie", "Le contact a bien été enregistré.")
 
+
+# Fonction pour charger les données de la base de données JSON
+def charger_base_de_donnees():
+    try:
+        with open("database.json", "r") as fichier:
+            return json.load(fichier)
+    except FileNotFoundError:
+        return []
+    
+    
+def modifier_contact():
+    # Création de la fenêtre principale
+    fenetre = tk.Tk()
+    fenetre.title("Modifier Contact")
+
+    # Création de variables tkinter pour stocker les détails du contact
+    nom_var = tk.StringVar()
+    numero_var = tk.StringVar()
+    
+    # Fonction pour sauvegarder les données de la base de données JSON
+def sauvegarder_base_de_donnees(data):
+    with open("database.json", "w") as fichier:
+        json.dump(data, fichier, indent=4)
+
+
 # Création des titres, labels, inputs et boutons.
 contact_title = tk.Label(screen, text="Entrez les informations du contact :")
 contact_title.pack()
@@ -50,6 +75,12 @@ phone_input.pack()
 # Création du bouton pour sauvegarder le contact. 
 contact_button = tk.Button(screen, text="Sauvegarder", command=save_information_user)
 contact_button.pack()
+
+#creation du bouton pour edit le contact
+edit_button = tk.button(screen, text="Modifier", command=modifier_contact)
+edit_button.pack()
+EndEdit_button = tk.button(screen, text="Terminé", command=sauvegarder_contact)
+EndEdit_button.pack()
 
 # Configuration de l'interface graphique.
 screen.geometry('1920x1080')

@@ -22,7 +22,6 @@ def modifier_contact():
     # Création de variables tkinter pour stocker les détails du contact
     nom_var = tk.StringVar()
     numero_var = tk.StringVar()
-    adresse_var = tk.StringVar()
 
     # Chargement de la base de données existante
 
@@ -34,18 +33,17 @@ def modifier_contact():
     # Création de variables tkinter pour stocker les détails du contact
     nom_var = tk.StringVar()
     numero_var = tk.StringVar()
-    adresse_var = tk.StringVar()
-
+    
     # Fonction pour mettre à jour les détails du contact
     def sauvegarder_contact():
         nom = nom_var.get()
         numero = numero_var.get()
-        adresse = adresse_var.get()
+        
         # Vous pouvez ajouter du code pour enregistrer les détails du contact dans une base de données ou un fichier ici
         print("Contact modifié :")
         print("Nom:", nom)
         print("Numéro de téléphone:", numero)
-        print("Adresse:", adresse)
+        
         screen.destroy()  # Ferme la fenêtre après avoir sauvegardé les modifications
 
     # Création des libellés et des champs de saisie
@@ -57,10 +55,6 @@ def modifier_contact():
     label_numero.pack()
     entry_numero = tk.Entry(screen, textvariable=numero_var)
     entry_numero.pack()
-    label_adresse = tk.Label(screen, text="Adresse:")
-    label_adresse.pack()
-    entry_adresse = tk.Entry(screen, textvariable=adresse_var)
-    entry_adresse.pack()
     # Bouton pour enregistrer les modif
     bouton_sauvegarder = tk.Button(screen, text="Enregistrer", command=sauvegarder_contact)
     bouton_sauvegarder.pack()
