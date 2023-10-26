@@ -57,23 +57,6 @@ contact_button = tk.Button(screen, text="Sauvegarder", command=save_information_
 contact_button.pack()
 
 
-# listeContacts = []  
-
-# try:
-#     with open('database.json', 'r') as fichier:
-#         data = json.load(fichier)
-
-#     if data:  # Vérifier si le fichier JSON n'est pas vide
-#         print("Liste des contacts :")
-#         for key, contact in data.items():
-#             print(f"Nom : {contact['nom']}, Prénom : {contact['prenom']}, Numéro de téléphone : {contact['telephone']}")
-#     else:
-#         print("Aucun contact n'a été ajouté pour le moment.")
-# except FileNotFoundError:
-#     print("Le fichier 'database.json' n'existe pas ou est vide.")
-
-# bouton_afficher_contacts = tk.Button(text="Afficher Contacts", command=listeContacts)
-# bouton_afficher_contacts.pack()
 
 listeContacts = tk.Text(screen, height=10, width=40)
 listeContacts.pack()
