@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import json
+import re
 
 # Création de l'interface graphique.
 screen = tk.Tk()
@@ -13,6 +14,10 @@ fichier_json = 'database.json'
 def save_information_user():
     if len(name_input.get()) <= 2 or len(surname_input.get()) <= 2:
         messagebox.showwarning("Attention", "Le nom et le prénom doivent comporter plus de 3 caractères.")
+    elif not re.match("^[0-9]*$", phone_input.get()):
+        messagebox.showwarning("Attention", "Le numéro de téléphone ne peut contenir que des chiffres.")
+    elif not re.match("^\d{10}$", phone_input.get()):
+        messagebox.showwarning("Attention", "Le numéro de téléphone doit contenir exactement 10 chiffres.")
     else:
         contact = {
             "nom": name_input.get(),
@@ -28,6 +33,7 @@ def save_information_user():
         with open(fichier_json, 'w') as file_user:
             json.dump(data, file_user)
         messagebox.showinfo("Sauvegarde réussie", "Le contact a bien été enregistré.")
+        
 
 # Affichage des contacts.
 def afficher_liste_contacts_tkinter():
@@ -113,6 +119,15 @@ def modifier_contact():
         print("Numéro de téléphone:", numero)
         
         screen.destroy()  # Ferme la fenêtre après avoir sauvegardé les modifications
+
+def delete_all_users():
+    try:
+        with open(fichier_json, 'w') as file:
+            file.write("{}") 
+        messagebox.showinfo("Suppression réussie", "Tous les contacts ont été supprimés avec succès.")
+    except FileNotFoundError:
+        messagebox.showerror("Erreur", "Le fichier 'database.json' n'existe pas ou est vide.")
+
 # Création des éléments de l'application :
 contact_title = tk.Label(screen, text="Entrez les informations du contact :", bg="white", font=("Helvetica", 16, "bold"))
 contact_title.pack(pady=10)
@@ -147,9 +162,13 @@ bouton_afficher_contacts.pack(pady=10)
 delete_contact_button = tk.Button(screen, text="Supprimer un contact", borderwidth=5, relief='raised', bg="red", fg="white", font=("Helvetica", 12, "bold"), padx=10, pady=5, command=supprimer_contact)
 delete_contact_button.pack(pady=10)
 
+delete_all_users_button = tk.Button(screen, text="Supprimer tous les contacts", borderwidth=5, relief='raised', bg="Black", fg="white", font=("Helvetica", 12, "bold"), padx=10, pady=5, command=delete_all_users)
+delete_all_users_button.pack(pady=10)
+
 bouton_editer = tk.Button(screen, text="Éditer", borderwidth=5, relief='raised', bg="white", fg="blue", font=("Helvetica", 12, "bold"), padx=10, pady=5,  command=modifier_contact)
 bouton_editer.pack()
+
 # Configuration de l'interface graphique :
-screen.geometry('600x700')
+screen.geometry('600x800')
 screen.configure(bg="#ECF8F6")
 screen.mainloop()
